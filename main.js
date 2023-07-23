@@ -164,7 +164,7 @@ function createMainWindow() {
       worldSafeExecuteJavaScript: true
     }
   });
-  mainWindow.loadURL('https://mail.google.com/');
+  mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   let titleCheckInterval = setInterval(() => {
     mainWindow.webContents.executeJavaScript("document.title")
