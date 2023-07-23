@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>יישומינט - Kikar HaShabbat </title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        #title .icon-container img {
+            margin-left: 4px;
+            max-width: 18px;
+            max-height: 18px;
+            padding: 4px; /* Decrease padding to reduce the size of the shadow */
+            border-radius: 50%; /* Make it a circle */
+            position: relative;
+            opacity: 0.8;
+            transition: background-color 0.3s ease, opacity 0.3s ease; /* Transition background-color instead of filter */
+            cursor: pointer;
+            filter: grayscale(100%); /* Initial color, 100% grayscale makes it gray */
+            background-color: transparent; /* No background color initially */
+            z-index: 1; /* Make sure the icon is above the background */
+        }
+
+        #title .icon-container img:hover {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.1); /* Lighter gray background on hover */
+        }
+
+        #title .icon-container img:active {
+            background-color: rgba(0, 0, 0, 0.5); /* Even darker gray background on click */
+        }
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f9fa;
+            direction: rtl;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #title {
+            font-size: 1em;
+            font-weight: bold;
+            color: #6c757d;
+            padding: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+        #title > div {
+            flex: 1;
+            text-align: center;
+        }
+
+        #title img#icon {
+            max-width: 35px;
+            max-height: 35px;
+            padding: 0 4px;
+            animation: iconAnimation 1s ease infinite;
+            margin: 0 5%;
+        }
+
+        #title .icon-container {
+            position: absolute;
+            right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        #title .icon-container img:hover {
+            opacity: 1;
+        }
+
+        @keyframes iconAnimation {
+            0% {
+                filter: brightness(60%);
+            }
+            50% {
+                filter: brightness(100%);
+            }
+            100% {
+                filter: brightness(60%);
+            }
+        }
+
+        #frameContainer {
+            margin-top: 50px;  /* Adjusted margin-top */
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+            height: calc(100% - 50px);  /* Adjusted height */
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="title">
+        <div>יישומינט - יישומים נטו</div>
+        <img src="C:\bechadrey\resources\ico isumunet.png" alt="IsumuNet Icon" id="icon">
+        <div>Isuminet - Neto Applications</div>
+        <div class="icon-container">
+            <img src="C:\bechadrey\resources\goBack.ico" alt="Go Back" title="חזור" style="filter: brightness(60%)" onclick="window.electron.goBack()">
+            <img src="C:\bechadrey\resources\goForward.ico" alt="Go Forward" title="קדימה" style="filter: brightness(60%)" onclick="window.electron.goForward()">
+            <img src="C:\bechadrey\resources\refresh.ico" alt="Refresh" title="רענן" style="filter: brightness(60%)" onclick="window.electron.reload()">
+            <img src="C:\bechadrey\resources\print.ico" alt="Print" title="הדפס" style="filter: brightness(60%)" onclick="window.electron.print()">            
+        </div>
+    </div>
+    <div id="frameContainer">
+<style>
+     #webview {
+      width: 100%;
+      height: 100%;
+   }
+ </style>
+
+<webview id="webview" src="https://mail.google.com/" webpreferences="nativeWindowOpen=yes"></webview>
+</div>
+
+<script>
+    var webview = document.getElementById('webview');
+
+    window.electron = {
+      goBack: function() {
+        window.electron.navigate('back');
+      },
+      goForward: function() {
+        webview.goForward();
+      },
+      reload: function() {
+        webview.reload();
+      },
+      print: function() {
+        // Your printing logic
+      }
+    };
+
+    function goBack() {
+      window.electron.goBack();
+    }
+
+    function goForward() {
+        webview.goForward();
+    }
+
+    function refresh() {
+        webview.reload();
+    }
+    
+    function printPage() {
+    // Create a new window
+    var newWin = window.open('', '_blank');
+
+    // Write the HTML to the new window
+    newWin.document.write(webview.getInnerHTML());
+
+    // Print the new window's contents
+    newWin.print();
+    }
+
+    window.addEventListener('load', function() {
+        var icon = document.getElementById('icon');
+        icon.style.animation = 'none';
+        icon.style.filter = 'brightness(100%)';
+        var icons = document.querySelectorAll('#title .icon-container img');
+        icons.forEach(function(icon) {
+            icon.style.animation = 'none';
+        });
+    });
+</script>
+</body>
+</html>
