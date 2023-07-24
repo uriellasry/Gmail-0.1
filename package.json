@@ -1,6 +1,6 @@
 {
     "name": "mail.google",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "יישום דוגמא ל mail.google",
     "main": "main.js",
     "scripts": {
